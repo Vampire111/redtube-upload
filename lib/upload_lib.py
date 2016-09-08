@@ -9,7 +9,7 @@ from data.category import *
 from data.description import *
 
 #########  SETTINGS ##########
-videos_folder = 'upload/redtube'
+videos_folder = 'upload'
 upload_accounts_folder = 'lib/accounts/'
 upload_report_file = 'log/report.txt'
 upload_log_file = 'log/upload.log'
@@ -34,9 +34,9 @@ def make_title(filename):
 
   # Например title = make_title(filename)
 
-def make_category(title, redtube_category):
+def make_category(title, site_category):
     category = []
-    for cat in redtube_category:
+    for cat in site_category:
         if cat[0][0] in title:
             category.append(cat[1][0])
 
@@ -44,7 +44,7 @@ def make_category(title, redtube_category):
             return category
 
     for _ in range(3):
-        cat_id = random.choice(redtube_category)[1][0]  
+        cat_id = random.choice(site_category)[1][0]  
         category.append(cat_id)
 
         if len(category) == 3:
@@ -62,21 +62,21 @@ def make_category(title, redtube_category):
 
 
 
-def make_tags(title, redtube_tags):
+def make_tags(title, site_tags):
     tags = []
-    for tag in redtube_tags:
+    for tag in site_tags:
         if tag in title:
             tags.append(tag)
 
         if len(tags) == 3:
-            return ' '.join(tags)
+            return tags
 
     for _ in range(3):
-        tag = random.choice(redtube_tags)
+        tag = random.choice(site_tags)
         tags.append(tag)
 
         if len(tags) == 3:
-            return ', '.join(tags)
+            return tags
     # функция получает чистый титл и возвращает 3 тега
     # берем список tags
     # берем первое значение из списка tags - смотрим его в титле
@@ -94,10 +94,7 @@ def make_description(redtube_description):
         desc = random.choice(redtube_description)
         description.append(desc)
 
-    return ' '.join(description)
-        
-        
-    pass
+    return description
     # функция выбирает 2 случайные значения из списка description
 
 

@@ -36,7 +36,7 @@ sys.stderr = sl
 name = "redtube"
 
 def get_videos():
-    data = os.walk(os.path.join(basedir,  videos_folder))
+    data = os.walk(os.path.join(basedir,  videos_folder, name))
     for root,  dirs,  files in data:
         return files
         
@@ -135,7 +135,7 @@ def create_session(login, password, proxy):
 
 
 def get_file_data(filename):
-    with open(os.path.join(basedir,  videos_folder,  filename), 'rb') as files:
+    with open(os.path.join(basedir,  videos_folder, name,  filename), 'rb') as files:
         filedata = files.read()
 
     return filedata
@@ -175,7 +175,7 @@ def upload_video(filename):
     dct['cookie_line'] = cookies_line
     dct['multipowuploadid'] = get_csrf()
     dct['fileid'] = get_csrf()
-    dct['tags'] = make_tags(dct['title'], tags)
+    dct['tags'] = ', '.join(make_tags(dct['title'], tags))
 
     dct['modificatetime'] = str(time.time()).replace('.', '') + '5'
 
@@ -259,7 +259,7 @@ def delete_proxy_from_file(all_proxies,  current_proxy):
         files.write('\n'.join(all_proxies))
         
 def delete_video_from_folder(filename):
-    os.remove(os.path.join(basedir,  videos_folder,  filename))
+    os.remove(os.path.join(basedir,  videos_folder, name,  filename))
     
 
 def main():
